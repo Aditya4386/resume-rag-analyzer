@@ -1,7 +1,7 @@
 # 📄 Resume RAG Analyzer
 
 ![Python](https://img.shields.io/badge/Python-3.10+-blue)
-![Streamlit](https://img.shields.io/badge/Streamlit-App-red)
+![Streamlit](https://img.shields.io/badge/Streamlit-Deployed-red)
 ![RAG](https://img.shields.io/badge/AI-RAG-green)
 ![License](https://img.shields.io/badge/License-MIT-yellow)
 
@@ -13,6 +13,14 @@ Upload a resume PDF, paste a job description, and get:
 - Resume improvement suggestions
 - AI-generated interview questions
 - Resume Q&A using RAG
+
+---
+
+# 🌐 Live Demo
+
+🚀 Deployed Application:
+
+[Resume RAG Analyzer Live App](https://resume-rag-analyzer-for-job-description.streamlit.app/?utm_source=chatgpt.com)
 
 ---
 
@@ -174,7 +182,7 @@ Get free API key from:
 
 ---
 
-# ▶️ Run Application
+# ▶️ Run Application Locally
 
 ```bash
 uv run streamlit run app.py
@@ -278,7 +286,8 @@ llama-3.1-8b-instant
 - LinkedIn profile parsing
 - User authentication
 - Resume ranking dashboard
-- Deployment support
+- Docker deployment
+- FastAPI backend integration
 
 ---
 
