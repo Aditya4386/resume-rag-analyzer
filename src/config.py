@@ -1,48 +1,88 @@
 """
 config.py - Central configuration for the Resume RAG application.
 
-All settings, constants, and environment variable loading happen here.
-Import from this module anywhere you need config values.
+Handles:
+- Environment variables
+- Streamlit Cloud secrets
+- Application settings
 """
 
 import os
+import streamlit as st
 from dotenv import load_dotenv
 
-# Load environment variables from .env file
+# Load local .env file (works locally)
 load_dotenv()
 
 
 # ── Groq / LLM settings ──────────────────────────────────────────────────────
-GROQ_API_KEY: str = os.getenv("GROQ_API_KEY", "")
-LLM_MODEL: str = "llama-3.1-8b-instant"     # Groq model to use
-LLM_TEMPERATURE: float = 0.3           # Lower = more deterministic output
-LLM_MAX_TOKENS: int = 1024            # Max tokens per LLM response
+
+# First check local .env
+# If not found, check Streamlit Cloud secrets
+GROQ_API_KEY: str = os.getenv(
+    "GROQ_API_KEY",
+    st.secrets.get("GROQ_API_KEY", "")
+)
+
+# Current active Groq model
+LLM_MODEL: str = "llama-3.1-8b-instant"
+
+# Lower temperature = more consistent responses
+LLM_TEMPERATURE: float = 0.3
+
+# Maximum response tokens
+LLM_MAX_TOKENS: int = 1024
+
 
 # ── Embedding settings ────────────────────────────────────────────────────────
-EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"   # Sentence-transformers model
+
+# Sentence-transformers embedding model
+EMBEDDING_MODEL: str = "all-MiniLM-L6-v2"
+
 
 # ── ChromaDB settings ─────────────────────────────────────────────────────────
-CHROMA_DB_PATH: str = "./chroma_db"          # Persistent storage path
+
+# Persistent database path
+CHROMA_DB_PATH: str = "./chroma_db"
+
+# Chroma collection name
 CHROMA_COLLECTION_NAME: str = "resume_chunks"
 
+
 # ── Text splitting settings ───────────────────────────────────────────────────
-CHUNK_SIZE: int = 500     # Characters per chunk
-CHUNK_OVERLAP: int = 100  # Overlap between consecutive chunks
+
+# Characters per chunk
+CHUNK_SIZE: int = 500
+
+# Overlap between chunks
+CHUNK_OVERLAP: int = 100
+
 
 # ── Retrieval settings ────────────────────────────────────────────────────────
-TOP_K_RESULTS: int = 3    # Number of relevant chunks to retrieve
+
+# Number of retrieved chunks
+TOP_K_RESULTS: int = 3
+
 
 # ── File settings ─────────────────────────────────────────────────────────────
-DATA_DIR: str = "./data"  # Temp storage for uploaded files
+
+# Temporary uploaded file storage
+DATA_DIR: str = "./data"
 
 
 def validate_config() -> tuple[bool, str]:
     """
-    Check that all required config values are set.
+    Validate required configuration values.
 
     Returns:
-        (is_valid: bool, message: str)
+        tuple[bool, str]:
+            (is_valid, message)
     """
+
     if not GROQ_API_KEY:
-        return False, "❌ GROQ_API_KEY is not set. Please add it to your .env file."
+        return (
+            False,
+            "❌ GROQ_API_KEY not found. Add it to .env or Streamlit secrets."
+        )
+
     return True, "✅ Configuration is valid."
