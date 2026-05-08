@@ -1,0 +1,25 @@
+[project]
+name = "resume-rag"
+version = "0.1.0"
+description = "Resume RAG Analyzer"
+readme = "README.md"
+requires-python = ">=3.11"
+
+dependencies = [
+    "streamlit",
+    "chromadb",
+    "sentence-transformers",
+    "langchain",
+    "pypdf",
+    "groq",
+    "python-dotenv",
+    "langchain-text-splitters>=1.1.2",
+    "torchvision>=0.26.0",
+]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"
+
+[tool.hatch.build.targets.wheel]
+packages = ["src"]
