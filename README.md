@@ -306,6 +306,7 @@ Built using:
 - LangChain
 - Groq API
 - Llama 3.1
+- Claude Code
 
 ---
 
